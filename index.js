@@ -1,12 +1,14 @@
 // author: chaitanyachavali
 // web: http://chaitanyachavali.com
 
+'use strict';
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 // const {app, BrowserWindow} = require('electron');
 const path = require('path');
 const url = require('url');
+require('electron-reload')(__dirname);
 let window;
 
 function startUp() {
