@@ -74,34 +74,8 @@
              window.$ = window.jQuery = require('./assets/js/jquery.min.js');
          </script>
          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-         <script type="text/javascript">
-             $(document).ready(function () {
-                 $('#sidebarCollapse').on('click', function () {
-                     $('#sidebar').toggleClass('active');
-                     $(this).toggleClass('active');
-                     $("#left").toggle();
-                     $("#right").toggle();
-                 });
-                 $("#left").toggle();
-                 $("#right, #left").on('click', function () {
-                    $("#sidebarCollapse").trigger('click');
-                 });
-             });
-         </script>
-         <script type="text/javascript">
-             function countWords(text) {
-                var tow = text.match(/\S+/g);
-                return {
-                    words: tow ? tow.length : 0,
-                    characters: text.length
-                };
-             }
-             var textarea = document.getElementById("text");
-             textarea.addEventListener("input", function(){
-                var response = countWords(this.value);
-                $("#rcount").html(response.words);
-             }, false);
+         <script>
+             require('./assets/js/app.js');
          </script>
     </body>
 </html>
