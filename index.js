@@ -11,8 +11,8 @@ let window;
 
 function startUp() {
   window = new BrowserWindow({
-    width: 800,
-    height: 600
+    width: 1100,
+    height: 800
   });
   window.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
