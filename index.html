@@ -66,7 +66,7 @@
                 <textarea placeholder="Text Here" id="text" name="text" rows="4" style="overflow: hidden; word-wrap: break-word; resize: none; height: 400px; "></textarea>
                 <div class="line"></div>
                 <strong>OS/Free Ram</strong>
-                <strong style="float:right;">Word Count - 50</strong>
+                <strong style="float:right;">Word Count - <i id="rcount">0</i></strong>
             </div>
         </div>
 
@@ -86,6 +86,20 @@
                     $("#sidebarCollapse").trigger('click');
                  });
              });
+         </script>
+         <script type="text/javascript">
+             function countWords(text) {
+                var tow = text.match(/\S+/g);
+                return {
+                    words: tow ? tow.length : 0,
+                    characters: text.length
+                };
+             }
+             var textarea = document.getElementById("text");
+             textarea.addEventListener("input", function(){
+                var response = countWords(this.value);
+                $("#rcount").html(response.words);
+             }, false);
          </script>
     </body>
 </html>
