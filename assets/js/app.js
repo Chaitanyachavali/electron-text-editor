@@ -1,4 +1,10 @@
+// author: chaitanyachavali
+// web: http://chaitanyachavali.com
+
 const os = require('os');
+const file = require('fs');
+const electron = require('electron').remote;
+const dialog = electron.dialog;
 
 $(document).ready(function() {
     $('#sidebarCollapse').on('click', function() {
@@ -38,3 +44,7 @@ function formatBytes(bytes,decimals) {
 var mem = formatBytes(os.freemem());
 $("#osMod").html(os.platform());
 $("#freeMem").html(mem);
+
+$("#newBtn").on('click', function() {
+    $("#text").val('');
+});
