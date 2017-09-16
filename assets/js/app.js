@@ -47,4 +47,36 @@ $("#freeMem").html(mem);
 
 $("#newBtn").on('click', function() {
     $("#text").val('');
+    $("#foName").html('Folder Name');
+    $("#fiName").html('File Namee');
+    $("#fiSize").html('File Size');
+});
+
+$("#saveBtn").on('click', function() {
+    var content = $("#text").val();
+    var check = content.replace(/ /g,'');
+    if(check === '')
+    {
+        dialog.showErrorBox('Cannot Continue!', 'Please write something in the textarea to save.');
+    }
+    else
+    {
+        dialog.showSaveDialog((savePath) => {
+            if(savePath === undefined)
+            {
+                console.log("Error in detecting the path to save the file");
+                return;
+            }
+            file.writeFile(savePath, content, (error) => {
+                if(error) console.log('File not saved; ' + error);
+                console.log('File saved at ' + savePath);
+                var stats = file.statSync(savePath);
+                var fileSize = formatBytes(stats.size);
+                $("#fiSize").html(fileSize);
+                var splitPath = savePath.split("\\");
+                $("#fiName").html(splitPath[splitPath.length - 1]);
+                $("#foName").html(splitPath[splitPath.length - 2]);
+            });
+        });
+    }
 });
