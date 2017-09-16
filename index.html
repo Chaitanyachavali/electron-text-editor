@@ -7,8 +7,8 @@
         <meta name="author" content="chaitanyachavali">
         <title>Text Editor</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/style.css">
     </head>
     <body>
 
@@ -35,7 +35,7 @@
                 </ul>
 
                 <ul class="list-unstyled CTAs">
-                    <li><a href="https://github.com/chaitanyachavali/electron-text-editor" class="download">Source</a></li>
+                    <li><a href="https://github.com/chaitanyachavali/electron-text-editor" class="sideNavBtn">Source</a></li>
                 </ul>
             </nav>
 
@@ -63,22 +63,28 @@
                     </div>
                 </nav>
 
-                <h2>Text Editor</h2>
-                <div class="line"></div>
                 <textarea placeholder="Text Here" id="text" name="text" rows="4" style="overflow: hidden; word-wrap: break-word; resize: none; height: 400px; "></textarea>
+                <div class="line"></div>
+                <strong>OS/Free Ram</strong>
+                <strong style="float:right;">Word Count - 50</strong>
             </div>
         </div>
 
          <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-         <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
          <script type="text/javascript">
              $(document).ready(function () {
                  $('#sidebarCollapse').on('click', function () {
                      $('#sidebar').toggleClass('active');
                      $(this).toggleClass('active');
+                     $("#left").toggle();
+                     $("#right").toggle();
                  });
-                 $('#text').autosize();
+                 $("#left").toggle();
+                 $("#right, #left").on('click', function () {
+                    $("#sidebarCollapse").trigger('click');
+                 });
              });
          </script>
     </body>

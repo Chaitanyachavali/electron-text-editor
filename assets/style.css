@@ -39,7 +39,7 @@ a, a:hover, a:focus {
     width: 100%;
     height: 1px;
     border-bottom: 1px dashed #ddd;
-    margin: 40px 0;
+    margin: 30px 0;
 }
 
 /* ---------------------------------------------------
@@ -131,7 +131,7 @@ ul.CTAs a {
     margin-bottom: 5px;
 }
 
-a.download {
+a.sideNavBtn {
     background: #fff;
     color: #7386D5;
 }
