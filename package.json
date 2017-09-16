@@ -1,0 +1,27 @@
+{
+  "name": "text-editor",
+  "version": "1.0.0",
+  "description": "Basic text editor. Developed for NEXT EDUCATION as an assignement",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaitanyachavali/electron-text-editor.git"
+  },
+  "keywords": [
+    "electron",
+    "text-electron"
+  ],
+  "author": "chaitanyachavali",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chaitanyachavali/electron-text-editor/issues"
+  },
+  "homepage": "https://github.com/chaitanyachavali/electron-text-editor#readme",
+  "dependencies": {
+    "electron": "^1.7.6"
+  }
+}
