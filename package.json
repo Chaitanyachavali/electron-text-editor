@@ -4,7 +4,6 @@
   "description": "Basic text editor. Developed for NEXT EDUCATION as an assignement",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron ."
   },
   "repository": {
@@ -15,7 +14,7 @@
     "electron",
     "text-electron"
   ],
-  "author": "chaitanyachavali",
+  "author": "chaitanyachavali <http://chaitanyachavali.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/chaitanyachavali/electron-text-editor/issues"
