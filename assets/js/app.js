@@ -61,6 +61,31 @@ $("#newBtn").on('click', function() {
     }
 });
 
+$("#openBtn").on('click', function() {
+    if (saveStatus === false) {
+        dialog.showErrorBox('Alert!', 'Make sure you save before continue');
+    } else {
+        dialog.showOpenDialog((filePath) => {
+            if(filePath === undefined) {
+                console.log('No file selected');
+            }
+            file.readFile(filePath, 'utf-8', (error, data) => {
+                if(err) console.log('Error in reading the file; ' + error);
+                $("#text").val(data);
+                saveStatus = true;
+                currentFile = filePath;
+                var stats = file.statSync(filePath);
+                var fileSize = formatBytes(stats.size);
+                $("#fiSize").html(fileSize);
+                var splitPath = filePath.split("\\");
+                $("#fiName").html(splitPath[splitPath.length - 1]);
+                $("#foName").html(splitPath[splitPath.length - 2]);
+                $('title').html(splitPath[splitPath.length - 1]);
+            });
+        });
+    }
+});
+
 function saveAsNewFile() {
     var content = $("#text").val();
     var check = content.replace(/ /g, '');
