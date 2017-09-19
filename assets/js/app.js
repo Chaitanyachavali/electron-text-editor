@@ -61,6 +61,16 @@ $("#newBtn").on('click', function() {
     }
 });
 
+function updateFields() {
+    var stats = file.statSync(currentFile);
+    var fileSize = formatBytes(stats.size);
+    $("#fiSize").html(fileSize);
+    var splitPath = currentFile.split("\\");
+    $("#fiName").html(splitPath[splitPath.length - 1]);
+    $("#foName").html(splitPath[splitPath.length - 2]);
+    $('title').html(splitPath[splitPath.length - 1]);
+}
+
 $("#openBtn").on('click', function() {
     if (saveStatus === false) {
         dialog.showErrorBox('Alert!', 'Make sure you save before continue');
@@ -69,18 +79,12 @@ $("#openBtn").on('click', function() {
             if(filePath === undefined) {
                 console.log('No file selected');
             }
-            file.readFile(filePath, 'utf-8', (error, data) => {
-                if(err) console.log('Error in reading the file; ' + error);
+            file.readFile(filePath[0], 'utf-8', (error, data) => {
+                if(error) console.log('Error in reading the file; ' + error);
                 $("#text").val(data);
                 saveStatus = true;
-                currentFile = filePath;
-                var stats = file.statSync(filePath);
-                var fileSize = formatBytes(stats.size);
-                $("#fiSize").html(fileSize);
-                var splitPath = filePath.split("\\");
-                $("#fiName").html(splitPath[splitPath.length - 1]);
-                $("#foName").html(splitPath[splitPath.length - 2]);
-                $('title').html(splitPath[splitPath.length - 1]);
+                currentFile = filePath[0];
+                updateFields();
             });
         });
     }
@@ -102,13 +106,7 @@ function saveAsNewFile() {
                 console.log('File saved at ' + savePath);
                 saveStatus = true;
                 currentFile = savePath;
-                var stats = file.statSync(savePath);
-                var fileSize = formatBytes(stats.size);
-                $("#fiSize").html(fileSize);
-                var splitPath = savePath.split("\\");
-                $("#fiName").html(splitPath[splitPath.length - 1]);
-                $("#foName").html(splitPath[splitPath.length - 2]);
-                $('title').html(splitPath[splitPath.length - 1]);
+                updateFields();
             });
         });
     }
