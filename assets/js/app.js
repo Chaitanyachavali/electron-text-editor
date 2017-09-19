@@ -20,7 +20,6 @@ $(document).ready(function() {
         $("#sidebarCollapse").trigger('click');
     });
     currentFile = 'none';
-    console.log(currentFile);
 });
 
 function countWords(text) {
@@ -37,13 +36,13 @@ textarea.addEventListener("input", function() {
     $("#rcount").html(response.words);
 }, false);
 
-function formatBytes(bytes,decimals) {
-   if(bytes == 0) return '0 Bytes';
-   var k = 1024,
-       dm = decimals || 2,
-       sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-       i = Math.floor(Math.log(bytes) / Math.log(k));
-   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+function formatBytes(bytes, decimals) {
+    if (bytes == 0) return '0 Bytes';
+    var k = 1024,
+        dm = decimals || 2,
+        sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+        i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
 
 var mem = formatBytes(os.freemem());
@@ -51,12 +50,9 @@ $("#osMod").html(os.platform());
 $("#freeMem").html(mem);
 
 $("#newBtn").on('click', function() {
-    if(saveStatus === false)
-    {
+    if (saveStatus === false) {
         dialog.showErrorBox('Alert!', 'Make sure you save before continue');
-    }
-    else
-    {
+    } else {
         $("#text").val('');
         $("#foName").html('Folder Name');
         $("#fiName").html('File Name');
@@ -65,23 +61,19 @@ $("#newBtn").on('click', function() {
     }
 });
 
-$("#saveAsBtn").on('click', function() {
+function saveAsNewFile() {
     var content = $("#text").val();
-    var check = content.replace(/ /g,'');
-    if(check === '')
-    {
+    var check = content.replace(/ /g, '');
+    if (check === '') {
         dialog.showErrorBox('Cannot Continue!', 'Please write something in the textarea to save');
-    }
-    else
-    {
+    } else {
         dialog.showSaveDialog((savePath) => {
-            if(savePath === undefined)
-            {
+            if (savePath === undefined) {
                 console.log("Error in detecting the path to save the file");
                 return;
             }
             file.writeFile(savePath, content, (error) => {
-                if(error) console.log('File not saved; ' + error);
+                if (error) console.log('File not saved; ' + error);
                 console.log('File saved at ' + savePath);
                 saveStatus = true;
                 currentFile = savePath;
@@ -95,4 +87,25 @@ $("#saveAsBtn").on('click', function() {
             });
         });
     }
+}
+
+$("#saveBtn").on('click', function() {
+    if(currentFile === 'none') {
+        saveAsNewFile();
+    }
+    else {
+        var content = $("#text").val();
+        file.writeFile(currentFile, content, (error) => {
+            if (error) console.log('File not saved; ' + error);
+            console.log('File saved at ' + currentFile);
+            saveStatus = true;
+            var stats = file.statSync(currentFile);
+            var fileSize = formatBytes(stats.size);
+            $("#fiSize").html(fileSize);
+        });
+    }
+});
+
+$("#saveAsBtn").on('click', function() {
+    saveAsNewFile();
 });
