@@ -5,6 +5,8 @@ const os = require('os');
 const file = require('fs');
 const electron = require('electron').remote;
 const dialog = electron.dialog;
+var currentFile;
+var saveStatus;
 
 $(document).ready(function() {
     $('#sidebarCollapse').on('click', function() {
@@ -17,6 +19,8 @@ $(document).ready(function() {
     $("#right, #left").on('click', function() {
         $("#sidebarCollapse").trigger('click');
     });
+    currentFile = 'none';
+    console.log(currentFile);
 });
 
 function countWords(text) {
@@ -28,6 +32,7 @@ function countWords(text) {
 }
 var textarea = document.getElementById("text");
 textarea.addEventListener("input", function() {
+    saveStatus = false;
     var response = countWords(this.value);
     $("#rcount").html(response.words);
 }, false);
@@ -46,18 +51,26 @@ $("#osMod").html(os.platform());
 $("#freeMem").html(mem);
 
 $("#newBtn").on('click', function() {
-    $("#text").val('');
-    $("#foName").html('Folder Name');
-    $("#fiName").html('File Namee');
-    $("#fiSize").html('File Size');
+    if(saveStatus === false)
+    {
+        dialog.showErrorBox('Alert!', 'Make sure you save before continue');
+    }
+    else
+    {
+        $("#text").val('');
+        $("#foName").html('Folder Name');
+        $("#fiName").html('File Name');
+        $("#fiSize").html('File Size');
+        currentFile = 'none';
+    }
 });
 
-$("#saveBtn").on('click', function() {
+$("#saveAsBtn").on('click', function() {
     var content = $("#text").val();
     var check = content.replace(/ /g,'');
     if(check === '')
     {
-        dialog.showErrorBox('Cannot Continue!', 'Please write something in the textarea to save.');
+        dialog.showErrorBox('Cannot Continue!', 'Please write something in the textarea to save');
     }
     else
     {
@@ -70,12 +83,15 @@ $("#saveBtn").on('click', function() {
             file.writeFile(savePath, content, (error) => {
                 if(error) console.log('File not saved; ' + error);
                 console.log('File saved at ' + savePath);
+                saveStatus = true;
+                currentFile = savePath;
                 var stats = file.statSync(savePath);
                 var fileSize = formatBytes(stats.size);
                 $("#fiSize").html(fileSize);
                 var splitPath = savePath.split("\\");
                 $("#fiName").html(splitPath[splitPath.length - 1]);
                 $("#foName").html(splitPath[splitPath.length - 2]);
+                $('title').html(splitPath[splitPath.length - 1]);
             });
         });
     }
