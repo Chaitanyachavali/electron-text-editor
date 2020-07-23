@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/chaitanyachavali/electron-text-editor#readme",
   "dependencies": {
-    "electron": "^1.7.6",
+    "electron": "^7.2.4",
     "electron-reload": "^1.2.1",
     "os": "^0.1.1"
   }
